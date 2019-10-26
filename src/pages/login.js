@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import AppIcon from '../images/leaf.png';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+
 // MUI stuff
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -11,36 +12,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const styles = {
-  form: {
-    textAlign: 'center'
-  },
-  image: {
-    margin: '20px auto 20px auto',
-    height: 59
-  },
-  pageTitle: {
-    margin: '10px auto 10px auto'
-  },
-  textField: {
-    margin: '10px auto 10px auto'
-  },
-  button: {
-    marginTop: 12,
-    position: 'relative'
-  },
-  customError: {
-    color: 'red',
-    fontSize: '0.8rem',
-    marginTop: 10
-  },
-  progress: {
-    position: 'absolute'
-  },
-  link: {
-    color: '#00bcd4'
-  }
-};
+const styles = theme => ({
+  ...theme.spreadThis
+});
 
 class login extends Component {
   constructor() {
@@ -65,6 +39,7 @@ class login extends Component {
       .post('/login', userData)
       .then(res => {
         console.log(res.data);
+        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
         this.setState({
           loading: false
         });
@@ -129,6 +104,7 @@ class login extends Component {
               variant="contained"
               color="primary"
               className={classes.button}
+              disabled={loading}
             >
               Login
               {loading && (
