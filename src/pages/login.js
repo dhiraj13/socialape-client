@@ -99,11 +99,7 @@ class login extends Component {
             >
               Login
               {loading && (
-                <CircularProgress
-                  color="inherit"
-                  size={30}
-                  className={classes.progress}
-                />
+                <CircularProgress size={30} className={classes.progress} />
               )}
             </Button>
             <br />
